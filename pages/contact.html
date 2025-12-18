@@ -20,7 +20,7 @@
     <link rel="icon" type="image/svg+xml" href="../images/logo.svg">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header Component -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -32,12 +32,19 @@
                 </div>
                 <nav>
                     <ul class="nav-menu">
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="../index.html#features">Features</a></li>
-                        <li><a href="../index.html#benefits">Benefits</a></li>
-                        <li><a href="#contact-form" class="btn btn-white">Contact Form</a></li>
+                        <li><a href="../index.html" class="nav-home">Home</a></li>
+                        <li><a href="../index.html#features" class="nav-features">Features</a></li>
+                        <li><a href="../index.html#how-it-works" class="nav-how-it-works">How It Works</a></li>
+                        <li><a href="../index.html#benefits" class="nav-benefits">Benefits</a></li>
+                        <li><a href="#contact-form" class="btn btn-white nav-contact">Contact Form</a></li>
                     </ul>
                 </nav>
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-button" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
@@ -259,25 +266,26 @@
                     </ul>
                 </div>
                 <div class="benefits-visual">
-                    <!-- Background icon will be added via CSS -->
+                    <img src="../images/img-leaf.jpg" alt="Complete Plant Protection Benefits" class="benefits-image">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Component -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <p>&copy; 2025 pHenohunt. All rights reserved.</p>
+                    <p>&copy; 2024 pHenohunt. All rights reserved.</p>
                     <p>Natural plant defense technology for a safer tomorrow.</p>
                 </div>
                 <nav>
                     <ul class="footer-links">
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="../index.html#features">Features</a></li>
-                        <li><a href="../index.html#benefits">Benefits</a></li>
+                        <li><a href="../index.html" class="footer-home">Home</a></li>
+                        <li><a href="../index.html#features" class="footer-features">Features</a></li>
+                        <li><a href="../index.html#benefits" class="footer-benefits">Benefits</a></li>
+                        <li><a href="contact.html" class="footer-contact">Contact</a></li>
                         <li><a href="mailto:jesse@bio10.com.au">Support</a></li>
                     </ul>
                 </nav>
@@ -294,7 +302,7 @@
             // Auto-focus first form field
             const firstInput = document.getElementById('firstName');
             if (firstInput) {
-                firstInput.focus();
+                setTimeout(() => firstInput.focus(), 500);
             }
             
             // Phone number formatting

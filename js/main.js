@@ -5,16 +5,37 @@
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Initialize all functionality
+    // Check if components are being loaded
+    if (document.getElementById('header-placeholder') || document.getElementById('footer-placeholder')) {
+        // Wait for components to load before initializing
+        document.addEventListener('componentsLoaded', function() {
+            initializeApp();
+        });
+        
+        // Fallback: initialize after a delay if components event doesn't fire
+        setTimeout(() => {
+            if (!document.querySelector('header') && !document.querySelector('footer')) {
+                console.warn('Components may have failed to load, initializing anyway...');
+                initializeApp();
+            }
+        }, 3000);
+    } else {
+        // No components to load, initialize immediately
+        initializeApp();
+    }
+});
+
+// Initialize all functionality
+function initializeApp() {
+    console.log('Initializing application...');
     initSmoothScrolling();
     initScrollAnimations();
     initFormValidation();
     initContactForm();
     initMobileMenu();
     initLoadingAnimations();
-    
-});
+    console.log('Application initialized successfully');
+}
 
 /* ================================================
    Smooth Scrolling Navigation
@@ -28,7 +49,7 @@ function initSmoothScrolling() {
             
             if (target) {
                 const headerOffset = 80;
-                const elementPosition = target.getBoundingClientPosition().top;
+                const elementPosition = target.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                 
                 window.scrollTo({
@@ -250,6 +271,8 @@ function initContactForm() {
     
     // Add loading state functionality
     const submitButton = contactForm.querySelector('.form-submit');
+    if (!submitButton) return;
+    
     const originalButtonText = submitButton.textContent;
     
     contactForm.addEventListener('submit', function(e) {
@@ -300,19 +323,21 @@ function showFormSuccess() {
     `;
     
     const form = document.querySelector('form');
-    form.parentNode.insertBefore(successMessage, form);
-    
-    // Remove success message after 5 seconds
-    setTimeout(() => {
-        successMessage.remove();
-    }, 5000);
-    
-    // Scroll to success message
-    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (form) {
+        form.parentNode.insertBefore(successMessage, form);
+        
+        // Remove success message after 5 seconds
+        setTimeout(() => {
+            successMessage.remove();
+        }, 5000);
+        
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 /* ================================================
-   Mobile Menu (if needed for future expansion)
+   Mobile Menu (enhanced to work with components)
 ================================================ */
 function initMobileMenu() {
     // Mobile menu toggle functionality
@@ -320,18 +345,39 @@ function initMobileMenu() {
     const navMenu = document.querySelector('.nav-menu');
     
     if (mobileMenuButton && navMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuButton.classList.toggle('active');
-        });
+        // Remove any existing listeners to prevent duplicates
+        mobileMenuButton.removeEventListener('click', handleMobileMenuClick);
+        
+        mobileMenuButton.addEventListener('click', handleMobileMenuClick);
         
         // Close menu when clicking on a link
         navMenu.addEventListener('click', (e) => {
             if (e.target.tagName === 'A') {
-                navMenu.classList.remove('active');
+                navMenu.classList.remove('mobile-active');
                 mobileMenuButton.classList.remove('active');
             }
         });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (mobileMenuButton && navMenu && 
+                !mobileMenuButton.contains(e.target) && 
+                !navMenu.contains(e.target)) {
+                navMenu.classList.remove('mobile-active');
+                mobileMenuButton.classList.remove('active');
+            }
+        });
+    }
+}
+
+function handleMobileMenuClick(e) {
+    e.preventDefault();
+    const mobileMenuButton = e.target.closest('.mobile-menu-button');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (mobileMenuButton && navMenu) {
+        navMenu.classList.toggle('mobile-active');
+        mobileMenuButton.classList.toggle('active');
     }
 }
 
@@ -369,10 +415,12 @@ function throttle(func, limit) {
 // Add scroll-based header styling
 window.addEventListener('scroll', throttle(() => {
     const header = document.querySelector('header');
-    if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (header) {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     }
 }, 100));
 

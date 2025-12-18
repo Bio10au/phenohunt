@@ -226,10 +226,10 @@ header::before {
     color: var(--soft-white);
 }
 
-.btn-white {
-    background: var(--soft-white);
-    color: var(--forest-green);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.btn-light-green {
+    background: var(--sage-green);
+    color: var(--sage-green);
+    box-shadow: 0 8px 25px rgba(185, 178, 178, 0.233);
 }
 
 .btn-white:hover {
@@ -837,5 +837,78 @@ footer {
     
     .page-title {
         font-size: 24pt;
+    }
+}
+/* Update for Hero Visual with Image */
+
+.hero-visual {
+    position: relative;
+    height: 400px;
+    background: var(--gradient-primary);
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    box-shadow: 0 20px 40px var(--shadow-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Remove the old emoji background */
+.hero-visual::before {
+    display: none;
+}
+
+/* Style for the hero image */
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius-large);
+    transition: transform var(--transition-fast);
+}
+
+/* Optional: Add hover effect */
+.hero-visual:hover .hero-image {
+    transform: scale(1.05);
+}
+
+/* Optional: Add overlay for better text readability if you want text over image */
+.hero-visual-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.3) 0%, rgba(123, 164, 40, 0.3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-large);
+}
+
+/* Keep proof text styling if you want it over the image */
+.proof-text {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--soft-white);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    background: rgba(45, 80, 22, 0.5);
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius-small);
+    backdrop-filter: blur(10px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-visual {
+        height: 250px;
+    }
+    
+    .proof-text {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        padding: 0.5rem 1rem;
     }
 }
