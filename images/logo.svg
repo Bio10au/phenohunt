@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b8e652;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7ba428;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="25" fill="url(#logoGradient)" opacity="0.2"/>
+  
+  <!-- Leaf icon -->
+  <path d="M20,15 Q30,10 40,15 Q35,25 30,40 Q25,25 20,15 Z" fill="url(#logoGradient)"/>
+  <path d="M25,20 Q30,18 35,20 Q32,25 30,30 Q28,25 25,20 Z" fill="white" opacity="0.3"/>
+  
+  <!-- Text -->
+  <text x="55" y="25" font-family="Playfair Display, serif" font-size="18" font-weight="700" fill="white">
+    pHenohunt
+  </text>
+  <text x="55" y="42" font-family="Source Sans Pro, sans-serif" font-size="10" font-weight="300" fill="#b8e652">
+    NATURAL PLANT DEFENSE
+  </text>
+</svg>
